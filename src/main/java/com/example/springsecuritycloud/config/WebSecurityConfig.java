@@ -25,7 +25,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.httpBasic();
-        http.authorizeRequests().mvcMatchers(HttpMethod.GET,"/coupons/{code:{A-Z}*$}").hasAnyRole("USER","ADMIN").mvcMatchers(HttpMethod.POST,"/coupons").hasAnyRole("ADMIN").anyRequest().denyAll().and().csrf().disable();
+        http.csrf().disable().authorizeRequests()
+                .mvcMatchers("/**")
+                .permitAll()
+//                .mvcMatchers(HttpMethod.GET,"/coupons/{code:{A-Z}*$}")
+//                .hasAnyRole("USER","ADMIN")
+//                .mvcMatchers(HttpMethod.POST,"/coupons")
+//                .hasAnyRole("ADMIN")
+                .anyRequest().permitAll().and();
     }
 
 

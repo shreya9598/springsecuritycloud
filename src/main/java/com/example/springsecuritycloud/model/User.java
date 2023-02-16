@@ -3,10 +3,11 @@ package com.example.springsecuritycloud.model;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class User  {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -16,7 +17,7 @@ public class User  {
 
     private String email;
 
-    @ManyToMany(fetch= FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
@@ -67,6 +68,9 @@ public class User  {
     public void setEmail(String email) {
         this.email = email;
     }
-
+    public void addRole(Role role){
+    if(roles==null)roles=new HashSet();
+    roles.add(role);
+    }
 
 }
