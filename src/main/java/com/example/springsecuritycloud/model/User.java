@@ -1,6 +1,8 @@
 package com.example.springsecuritycloud.model;
 
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -15,7 +17,9 @@ public class User {
     private String lastName;
     private String password;
 
-    private String email;
+
+    @Column(unique = true)
+    public String email;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -50,6 +54,8 @@ public class User {
     }
 
     public void setPassword(String password) {
+//        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+//        password = passwordEncoder.encode(password);
         this.password = password;
     }
 
@@ -69,8 +75,8 @@ public class User {
         this.email = email;
     }
     public void addRole(Role role){
-    if(roles==null)roles=new HashSet();
-    roles.add(role);
+        if(roles==null)roles=new HashSet();
+        roles.add(role);
     }
 
 }

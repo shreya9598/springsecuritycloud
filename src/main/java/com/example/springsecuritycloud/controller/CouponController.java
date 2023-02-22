@@ -28,9 +28,11 @@ public class CouponController {
     }
 
     @GetMapping("/coupons")
-    @PermitAll()
+//    @PermitAll()
     public List<Coupon> getAllCoupons() {
-        // return List.of();
+//         return List.of();
+
+//        return "hjhjhkjsf";
         return couponRepo.findAll();
     }
 
